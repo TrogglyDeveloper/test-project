@@ -87,7 +87,8 @@ public class SearchConcatenationImpl implements SearchConcatenation {
     private boolean isContainWordInArray(char[] wordLetters, int startIndex) {
 
         boolean processResult;
-        int endConcatenatedWordIndex = -1;
+        final int ARRAY_BOUND_VALUE = -1;
+        int endConcatenatedWordIndex = ARRAY_BOUND_VALUE;
         StringBuilder searchedWord = new StringBuilder();
 
         for (int i = startIndex; i < wordLetters.length; i++) {
@@ -100,11 +101,12 @@ public class SearchConcatenationImpl implements SearchConcatenation {
             }
         }
 
-        if ((endConcatenatedWordIndex != -1) && (endConcatenatedWordIndex != wordLetters.length)) {
+        if ((endConcatenatedWordIndex != ARRAY_BOUND_VALUE)
+                && (endConcatenatedWordIndex != wordLetters.length)) {
             return isContainWordInArray(wordLetters, endConcatenatedWordIndex);
         }
 
-        if (endConcatenatedWordIndex == -1) {
+        if (endConcatenatedWordIndex == ARRAY_BOUND_VALUE) {
             processResult = false;
         } else {
             processResult = true;
