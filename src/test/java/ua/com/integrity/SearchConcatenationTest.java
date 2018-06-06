@@ -7,7 +7,7 @@ import ua.com.integrity.model.SearchConcatenatedWordsResult;
 
 import java.io.File;
 
-public class FileReaderImplTest {
+public class SearchConcatenationTest {
 
     private final String WORDS_FILE = "/home/wallace/Buffer/words.txt";
     private final String CAT_FILE = "/home/wallace/Buffer/cat.txt";
