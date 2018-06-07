@@ -10,6 +10,7 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.HashSet;
+import java.util.LinkedList;
 
 public class SearchConcatenationImpl implements SearchConcatenation {
 
@@ -84,11 +85,12 @@ public class SearchConcatenationImpl implements SearchConcatenation {
         return words;
     }
 
-    private boolean isContainWordInArray(char[] wordLetters, int startIndex) {
+    private boolean isContainWordInArray(
+            char[] wordLetters,
+            int startIndex) {
 
-        boolean processResult;
-        final int ARRAY_BOUND_VALUE = -1;
-        int endConcatenatedWordIndex = ARRAY_BOUND_VALUE;
+        LinkedList<Integer> entryIndexes = new LinkedList<>();
+        boolean processResult = false;
         StringBuilder searchedWord = new StringBuilder();
 
         for (int i = startIndex; i < wordLetters.length; i++) {
@@ -97,19 +99,19 @@ public class SearchConcatenationImpl implements SearchConcatenation {
 
             if ((words.contains(searchedWord.toString()))
                     && (searchedWord.length() != wordLetters.length)) {
-                endConcatenatedWordIndex = i + 1;
+                entryIndexes.addFirst(i + 1);
+
+                if (searchedWord.toString().length() != wordLetters.length
+                        && (i + 1 == wordLetters.length)) {
+                    return true;
+                }
             }
         }
 
-        if ((endConcatenatedWordIndex != ARRAY_BOUND_VALUE)
-                && (endConcatenatedWordIndex != wordLetters.length)) {
-            return isContainWordInArray(wordLetters, endConcatenatedWordIndex);
-        }
-
-        if (endConcatenatedWordIndex == ARRAY_BOUND_VALUE) {
-            processResult = false;
-        } else {
-            processResult = true;
+        for (Integer index : entryIndexes) {
+            if (isContainWordInArray(wordLetters, index)) {
+                processResult = true;
+            }
         }
 
         return processResult;
