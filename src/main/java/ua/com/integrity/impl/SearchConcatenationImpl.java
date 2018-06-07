@@ -110,7 +110,7 @@ public class SearchConcatenationImpl implements SearchConcatenation {
 
         for (Integer index : entryIndexes) {
             if (isContainWordInArray(wordLetters, index)) {
-                processResult = true;
+                return true;
             }
         }
 
